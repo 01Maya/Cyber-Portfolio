@@ -1,0 +1,67 @@
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgb(14 159 154 / 10%), transparent 62%),
+    linear-gradient(145deg, #172944, #101b30 70%);
+  will-change: transform;
+  animation-duration: 1.25s;
+  animation-delay: 120ms;
+  animation-timing-function: cubic-bezier(.77, 0, .18, 1);
+  animation-fill-mode: forwards;
+  animation-name: lift-curtain;
+}
+
+.mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
+  color: white;
+  font-family: var(--ff-display);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: .06em;
+  animation: fade-mark 450ms ease-out 420ms forwards;
+}
+
+.logo {
+  display: grid;
+  width: 2.75rem;
+  aspect-ratio: 1;
+  flex: none;
+  place-items: center;
+  border: 1px solid rgb(125 227 222 / 38%);
+  border-radius: .85rem;
+  background: rgb(14 159 154 / 12%);
+  color: #7de3de;
+  box-shadow: 0 0 24px rgb(14 159 154 / 12%);
+}
+
+@keyframes lift-curtain {
+  to { transform: translateY(-100%); }
+}
+
+@keyframes fade-mark {
+  to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transform: translateY(-100%);
+  }
+
+  .mark {
+    display: none;
+  }
+}

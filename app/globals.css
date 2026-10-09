@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: #fff;
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted-foreground: var(--mute);
+  --color-border: var(--line);
+  --color-input: var(--line);
+  --color-ring: var(--teal);
+  --color-destructive: var(--alert);
+  --color-teal: var(--teal);
+  --color-teal-soft: #cfefec;
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-alert: var(--alert);
+  --font-sans: var(--font-figtree), system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-figtree), sans-serif;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-scan: scan 4s ease-in-out infinite;
+  --animate-mq: mq 40s linear infinite;
+  --animate-halo: halo 1.6s ease-out infinite;
+  --animate-fade: fade 0.6s both;
+  --animate-shimmer: shimmer 2.4s ease-in-out infinite;
+  --animate-breathe: breathe 3.5s ease-in-out infinite;
+  @keyframes float { 50% { transform: translateY(-10px); } }
+  @keyframes scan { 0%,100% { transform: translateY(-130px); opacity: 0; } 15%,85% { opacity: 1; } 50% { transform: translateY(130px); } }
+  @keyframes mq { to { transform: translateX(-50%); } }
+  @keyframes halo { 0% { opacity: 1; transform: scale(.6); } 100% { opacity: 0; transform: scale(2); } }
+  @keyframes fade { from { opacity: 0; transform: translateY(12px); } }
+  @keyframes shimmer { 0%, 100% { transform: translateX(-120%); opacity: 0; } 35%, 65% { opacity: .8; } 100% { transform: translateX(120%); opacity: 0; } }
+  @keyframes breathe { 0%, 100% { box-shadow: 0 0 0 0 rgb(14 159 154 / .08); } 50% { box-shadow: 0 0 0 12px rgb(14 159 154 / 0); } }
+}
+
+::selection { background: #13213b; color: #fff; }
+
+/* Shared interaction language: quiet lift, crisp focus, and deliberate motion. */
+.hover-lift { transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .3s ease; }
+.hover-lift:hover { transform: translateY(-6px); box-shadow: 0 18px 45px rgb(19 33 59 / .1); border-color: rgb(14 159 154 / .45); }
+
+
+
+:root {
+  --background: #f2f6f8; --foreground: #13213b; --card: #ffffff; --primary: #13213b;
+  --secondary: #e6edf2; --mute: #425874; --line: #dce4ec; --teal: #0e9f9a; --alert: #e5484d;
+  color-scheme: light;
+
+  /* ───────── Type scale — the ONLY font sizes used on this site ─────────
+     Slightly increased for readability while keeping the same visual rhythm and
+     layout footprint. */
+  --fs-caption: .8125rem;
+  --fs-small: .9375rem;
+  --fs-body: 1.0625rem;
+  --fs-lead: 1.25rem;
+  --fs-h4: 1.5rem;
+  --fs-h3: 1.95rem;
+  --fs-quote: clamp(1.625rem, 2.8vw, 2.25rem);
+  --fs-h2: clamp(2.125rem, 4vw, 3rem);
+  --fs-display: clamp(2.875rem, 6vw, 4.75rem);
+  --ff-display: var(--font-bricolage), var(--font-figtree), system-ui, sans-serif;
+}
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  letter-spacing: -.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+input, textarea, select, button, label, small, p, li, dt, dd { line-height: 1.7; }
+p { text-wrap: pretty; }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ───────── Semantic type roles ─────────
+   Keep the existing rhythm and hierarchy, but improve readability and contrast.
+   Never combine two t-* classes on one element. */
+@layer components {
+  .t-display { font-family: var(--ff-display); font-weight: 700; font-size: var(--fs-display); line-height: 1.05; letter-spacing: -.032em; }
+  .t-h2      { font-family: var(--ff-display); font-weight: 700; font-size: var(--fs-h2);      line-height: 1.12; letter-spacing: -.028em; text-wrap: balance; }
+  .t-quote   { font-family: var(--ff-display); font-weight: 700; font-size: var(--fs-quote);   line-height: 1.28; letter-spacing: -.018em; text-wrap: balance; }
+  .t-h3      { font-family: var(--ff-display); font-weight: 700; font-size: var(--fs-h3);      line-height: 1.2;  letter-spacing: -.02em; text-wrap: balance; }
+  .t-h4      { font-family: var(--ff-display); font-weight: 700; font-size: var(--fs-h4);      line-height: 1.28; letter-spacing: -.012em; text-wrap: balance; }
+  .t-metric  { font-family: var(--ff-display); font-weight: 700; font-size: var(--fs-h4);      line-height: 1.1;  font-variant-numeric: tabular-nums; }
+  .t-lead    { font-size: var(--fs-lead); line-height: 1.7; }
+  .t-body    { font-size: var(--fs-body); line-height: 1.7; }
+  .t-small   { font-size: var(--fs-small); line-height: 1.6; }
+  .t-eyebrow { font-size: var(--fs-caption); line-height: 1.5; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  @media (min-width: 768px) { .t-lead { font-size: 1.35rem; } }
+  @media (max-width: 767px) {
+    .t-display { line-height: 1.08; }
+    .t-h2 { line-height: 1.15; }
+    .t-h3 { line-height: 1.25; }
+    .t-h4 { line-height: 1.35; }
+  }
+}
